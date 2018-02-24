@@ -68,12 +68,19 @@ if __name__ == '__main__':
     if result is not None:
         start = result[0] + 1
 
-    for i in range(start, stop):
-        extract_post(i, cursor)
+    i = start
+    while i < stop:
+        try:
+        	extract_post(i, cursor)
+        except requests.exceptions.ConnectionError:
+            print("Conneciton Error. Retrying " + str(i))
+            continue
 
         # commit every 100 rows
         if i % 100 == 0:
         	db.commit()
+
+        i += 1
 
     # do work
     db.close()
