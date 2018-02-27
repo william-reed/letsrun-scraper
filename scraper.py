@@ -5,7 +5,7 @@ import json
 import os
 from mysql.connector import connection
 
-headers = {'User-Agent': 'LetsRun Analyser 1.0'}
+headers = {'User-Agent': 'LetsRun Analyser 1.1', 'Accept': '*/*', 'Accept-Encoding': 'identity'}
 
 add_post = ("INSERT INTO posts "
             "(id, thread, parent, author, subject, body, datestamp, cat, body_text, body_html, thread_url, reply_url, "
