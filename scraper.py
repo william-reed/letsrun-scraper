@@ -3,6 +3,8 @@ import requests
 import re
 import json
 import os
+import time
+
 from mysql.connector import connection
 
 headers = {'User-Agent': 'LetsRun Analyser 1.1', 'Accept': '*/*', 'Accept-Encoding': 'identity'}
@@ -73,7 +75,9 @@ if __name__ == '__main__':
         try:
         	extract_post(i, cursor)
         except requests.exceptions.ConnectionError:
-            print("Conneciton Error. Retrying " + str(i))
+            db.commit() # commit in case we stop the program here and restart
+            print("Conneciton Error. Sleeping for 30 mins then Retrying " + str(i))
+            time.sleep(30 * 60)
             continue
 
         # commit every 100 rows
